@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./app.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+
+<body>
+    <div id="app">
+        <section class="row">
+            <div class="small-6 columns">
+                <h1 class="text-center">SEN</h1>
+                <div class="healthbar">
+                    <div :style="user_progress" class="healthbar text-center"
+                        style="background-color: green; margin: 10px;">
+                        {{player_heal}} %
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="small-6 columns">
+                <h1 class="text-center">CANAVAR</h1>
+                <div class="healthbar">
+                    <div :style="monster_progress" class="healthbar text-center"
+                        style="background-color: green; margin: 10px;">
+                        {{monster_heal}} %
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="row controls" v-if="!game_is_on">
+            <div class="small-12 columns">
+                <button id="start-game" @click="start_game">YENİ OYUN</button>
+            </div>
+        </section>
+
+
+        <section class="row controls" v-if="game_is_on">
+            <div class="small-12 columns">
+                <button id="attack" @click="attack">SALDIRI</button>
+                <button id="special-attack" @click="special_attack">ÖZEL SALDIRI</button>
+                <button id="heal" @click="heal_up">İLK YARDIM</button>
+                <button id="give-up" @click="give_up">PES ET!</button>
+            </div>
+        </section>
+        <section class="row log" v-if="logs.length >0">
+            <div class="small-12 columns">
+                <ul>
+                    <!-- eğer log.turn player ise player-turn kodu çalışsın, monster ise monster-turn komutu çalışssıjn -->
+                    <li :class="{'player-turn' : log.turn == 'p', 'monster-turn' : log.turn=='m'}" v-for="log in logs">
+                        {{log.text}}
+                    </li>
+
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+
+</html>
